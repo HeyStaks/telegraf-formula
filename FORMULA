@@ -1,0 +1,9 @@
+name: telegraf
+os: Ubuntu
+os_family: Debian
+version: 201604
+release: 1
+summary: Install and configure Influxdata's Telegraf
+description: Install and configure Influxdata's Telegraf
+top_level_dir: telegraf
+recommended: 

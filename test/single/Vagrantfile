@@ -1,0 +1,38 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure(2) do |config|
+  config.vm.box = "ubuntu/trusty64"
+
+  if Vagrant.has_plugin?("vagrant-cachier")
+    config.cache.scope = :box
+  end
+
+  config.vm.provision :shell, inline: "sudo locale-gen en_IE.UTF-8"
+
+  config.vm.network "private_network", type: "dhcp"
+  config.vm.hostname = "telegraf-formula"
+  config.vm.synced_folder "../../telegraf", "/srv/formulas/telegraf"
+  config.vm.synced_folder "../salt", "/srv/salt"
+  config.vm.synced_folder "../pillar", "/srv/pillar/"
+  # Testing with tox and testinfra
+  config.vm.synced_folder "../testinfra", "/vagrant/testinfra"
+
+  config.vm.provider "virtualbox" do |vb|
+    vb.name = "kafka-formula"
+    vb.memory = "2048"
+  end
+
+  config.vm.provision "shell", inline: "sudo apt-get install -y python-git python-pip"
+  config.vm.provision "shell", inline: "sudo pip install tox"
+
+  config.vm.provision :salt do |salt|
+    salt.masterless = true
+    salt.minion_config = "conf/minion"
+    salt.run_highstate = true
+  end
+
+  #config.vm.provision "test", type: "shell" do |t|
+  #  t.inline = "tox -c /vagrant/tox.ini"
+  #end
+end

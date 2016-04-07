@@ -1,0 +1,18 @@
+file_client: local
+
+fileserver_backend:
+  - roots
+  - git
+
+file_roots:
+  base:
+    - /srv/salt
+    - /srv/formulas
+
+gitfs_remotes:
+  - https://github.com/Heystaks/java-formula.git
+  - https://github.com/Heystaks/zookeeper-formula.git
+
+grains:
+  roles:
+    - telegraf

@@ -1,0 +1,2 @@
+telegraf:
+  prefix: /opt
