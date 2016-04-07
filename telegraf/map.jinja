@@ -1,10 +1,8 @@
-{% import_yaml 'telegraf/defaults.yaml' as default_settings %}
+{% import_yaml 'telegraf/defaults.yaml' as defaults %}
+{% import_yaml 'telegraf/oscodename.yaml' as oscodename_map %}
 
-{% set os_family_map = salt['grains.filter_by']({
-        'Debian': {},
-        'RedHat': {},
-  }, merge=salt['pillar.get']('telegraf:lookup')) %}
+{% set oscodename = salt['grains.filter_by'](oscodename_map, grain='oscodename') %}
 
-{% do default_settings.telegraf.update(os_family_map) %}
+{% do defaults.telegraf.update(oscodename) %}
 
-{% set telegraf = salt['pillar.get']('telegraf', default_settings.telegraf, merge=True) %}
+{% set telegraf = salt['pillar.get']('telegraf', default=defaults.telegraf, merge=True) %}

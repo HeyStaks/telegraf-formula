@@ -1,7 +1,6 @@
 telegraf:
   main:
     global_tags:
-      type: 'backend'
     agent:
       interval: '10s'
       round_interval: 'true'

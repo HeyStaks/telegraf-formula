@@ -3,7 +3,7 @@
 influxdata_repo:
   pkgrepo.managed:
     - humanname: Influxdata repo
-    - name: deb https://repos.influxdata.com/ubuntu trusty stable
+    - name: {{ telegraf.pkg_repo }}
     - key_url: https://repos.influxdata.com/influxdb.key
     - file: /etc/apt/sources.list.d/influxdata.list
     - require_in:
