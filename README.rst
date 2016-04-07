@@ -19,13 +19,10 @@ Available states
 ``telegraf``
 ------------
 
-TODO - add description of this state
-
-``telegraf.conf``
------------------
-
-TODO - add description of this state
-
+- Configure influxdata stable repo for Ubuntu 14.04
+- Install package telegraf.
+- Configure telegraf by using pillar information to render the configuration file.
+- Initialize telegraf service.
 
 Template
 ========
