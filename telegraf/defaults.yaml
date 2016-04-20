@@ -30,9 +30,6 @@ telegraf:
       percpu: 'true'
       totalcpu: 'true'
     disk:
-      mount_points:
-        - '/'
-        - '/mnt'
       ignore_fs:
         - 'tmpfs'
         - 'devtmpfs'
