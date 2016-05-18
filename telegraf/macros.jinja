@@ -1,0 +1,35 @@
+{% from "telegraf/map.jinja" import telegraf with context %}
+
+{%- macro render_options(o, v) %}
+    {%- if v in ['true', 'false'] or v is number %}
+  {{ o }} = {{ v }}
+    {%- elif v is not string %}
+  {{ o }} = [{{ '\"' + v|join('\", \"') + '\"' }}]
+    {%- else %}
+  {{ o }} = "{{ v }}"
+    {%- endif %}
+{%- endmacro -%}
+
+{%- macro render_section(section) %}
+    {#- First level #}
+    {%- for header, opts in telegraf[section].iteritems() %}
+    {%- if section == 'general' %}
+[{{ header }}]
+    {%- elif section in ['outputs', 'inputs'] %}
+[[{{ section }}.{{ header }}]]
+    {%- endif %}
+        {#- Second level #}
+        {%- if opts != None %}
+            {%- for option, value in opts.iteritems() %}
+                {%- if option not in ['tagpass', 'tagdrop', 'tags'] -%}
+                    {{ render_options(option, value) }}
+                {%- else %}
+  [{{ section }}.{{ header }}.{{ option }}]
+                    {%- for o, v in value.iteritems() -%}
+                        {{ render_options(o, v)|indent(2, 4) }}
+                    {%- endfor %}
+                {%- endif %}
+            {%- endfor %}
+        {%- endif %}
+    {% endfor %}
+{%- endmacro -%}

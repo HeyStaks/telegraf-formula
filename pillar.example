@@ -1,7 +1,6 @@
 telegraf:
-  main:
+  general:
     global_tags:
-      type: 'backend'
     agent:
       interval: '10s'
       round_interval: 'true'
@@ -31,9 +30,6 @@ telegraf:
       percpu: 'true'
       totalcpu: 'true'
     disk:
-      mount_points:
-        - '/'
-        - '/mnt'
       ignore_fs:
         - 'tmpfs'
         - 'devtmpfs'
