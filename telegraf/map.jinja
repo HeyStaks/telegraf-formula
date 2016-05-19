@@ -5,4 +5,12 @@
 
 {% do defaults.telegraf.update(oscodename) %}
 
+{# Read the interfaces that have an ip assigned and add that to defaults #}
+{% set interfaces = salt.grains.get('ip4_interfaces') %}
+{% for interface, ip in interfaces.items() %}
+  {% if ip %}
+    {% do defaults.telegraf.inputs.net.interfaces.append(interface) %}
+  {% endif %}
+{% endfor %}
+
 {% set telegraf = salt['pillar.get']('telegraf', default=defaults.telegraf, merge=True) %}

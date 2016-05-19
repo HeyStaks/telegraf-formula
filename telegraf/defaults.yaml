@@ -36,3 +36,4 @@ telegraf:
     mem:
     swap:
     net:
+      interfaces: []
