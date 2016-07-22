@@ -2,3 +2,5 @@ trusty:
   pkg_repo: deb https://repos.influxdata.com/ubuntu trusty stable
 precise:
   pkg_repo: deb https://repos.influxdata.com/ubuntu precise stable
+xenial:
+  pkg_repo: deb https://repos.influxdata.com/ubuntu xenial stable
